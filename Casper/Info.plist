@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleDisplayName</key>
+			<string>$(Casper)</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>Casper</string>
+			</array>
+		</dict>
+		<dict/>
+	</array>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Casper requires access to your calendar to manage events.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Casper requires access to your reminder to manage events.</string>
+</dict>
+</plist>

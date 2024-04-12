@@ -1,0 +1,502 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D62CC50C2B969F3700C6FC12 /* CasperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC50B2B969F3700C6FC12 /* CasperApp.swift */; };
+		D62CC5102B969F3700C6FC12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D62CC50F2B969F3700C6FC12 /* Assets.xcassets */; };
+		D62CC5132B969F3700C6FC12 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D62CC5122B969F3700C6FC12 /* Preview Assets.xcassets */; };
+		D62CC5212B96A53A00C6FC12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC5202B96A53A00C6FC12 /* AppDelegate.swift */; };
+		D62CC5252B96A60600C6FC12 /* CasperIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC5242B96A60600C6FC12 /* CasperIconView.swift */; };
+		D62CC5282B96A77A00C6FC12 /* ClickThroughWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC5272B96A77A00C6FC12 /* ClickThroughWindow.swift */; };
+		D62CC52D2B97A81400C6FC12 /* UserTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC52C2B97A81400C6FC12 /* UserTextBox.swift */; };
+		D62CC5332B98E1FF00C6FC12 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC5322B98E1FF00C6FC12 /* SpotifyService.swift */; };
+		D62CC53A2B99266900C6FC12 /* SpotifyAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62CC5392B99266900C6FC12 /* SpotifyAuthenticator.swift */; };
+		D67848DF2B9FCAED00E98E45 /* AlertPrompts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848DE2B9FCAED00E98E45 /* AlertPrompts.swift */; };
+		D67848E72B9FFB1B00E98E45 /* ActiveAppChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848E62B9FFB1B00E98E45 /* ActiveAppChecker.swift */; };
+		D67848EA2BA1447000E98E45 /* UserTypeRequestAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848E92BA1447000E98E45 /* UserTypeRequestAnimation.swift */; };
+		D67848EC2BA148BB00E98E45 /* ConfirmActionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848EB2BA148BB00E98E45 /* ConfirmActionAnimation.swift */; };
+		D67848EF2BA1592500E98E45 /* CustomInputIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848EE2BA1592500E98E45 /* CustomInputIcon.swift */; };
+		D67848F12BA1594500E98E45 /* AutoMonitoringIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848F02BA1594500E98E45 /* AutoMonitoringIcon.swift */; };
+		D67848F32BA15B1E00E98E45 /* CasperIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67848F22BA15B1E00E98E45 /* CasperIcon.swift */; };
+		D6BAA2072BA535D900B522C7 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA2062BA535D900B522C7 /* KeychainHelper.swift */; };
+		D6BAA20A2BAD014300B522C7 /* LogInAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA2092BAD014300B522C7 /* LogInAnimation.swift */; };
+		D6BAA20C2BAD067200B522C7 /* IdleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA20B2BAD067200B522C7 /* IdleAnimation.swift */; };
+		D6BAA2142BAD249100B522C7 /* HideAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA2132BAD249100B522C7 /* HideAnimation.swift */; };
+		D6BAA2182BAE046900B522C7 /* CasperTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA2172BAE046900B522C7 /* CasperTextBox.swift */; };
+		D6BAA21A2BAE059B00B522C7 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BAA2192BAE059B00B522C7 /* CalendarService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D62CC5082B969F3700C6FC12 /* Casper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Casper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D62CC50B2B969F3700C6FC12 /* CasperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasperApp.swift; sourceTree = "<group>"; };
+		D62CC50F2B969F3700C6FC12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D62CC5122B969F3700C6FC12 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D62CC5142B969F3700C6FC12 /* Casper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Casper.entitlements; sourceTree = "<group>"; };
+		D62CC5202B96A53A00C6FC12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D62CC5242B96A60600C6FC12 /* CasperIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasperIconView.swift; sourceTree = "<group>"; };
+		D62CC5272B96A77A00C6FC12 /* ClickThroughWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickThroughWindow.swift; sourceTree = "<group>"; };
+		D62CC52C2B97A81400C6FC12 /* UserTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTextBox.swift; sourceTree = "<group>"; };
+		D62CC52E2B98DF9100C6FC12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D62CC5322B98E1FF00C6FC12 /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
+		D62CC5392B99266900C6FC12 /* SpotifyAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAuthenticator.swift; sourceTree = "<group>"; };
+		D67848DE2B9FCAED00E98E45 /* AlertPrompts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPrompts.swift; sourceTree = "<group>"; };
+		D67848E62B9FFB1B00E98E45 /* ActiveAppChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveAppChecker.swift; sourceTree = "<group>"; };
+		D67848E92BA1447000E98E45 /* UserTypeRequestAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeRequestAnimation.swift; sourceTree = "<group>"; };
+		D67848EB2BA148BB00E98E45 /* ConfirmActionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmActionAnimation.swift; sourceTree = "<group>"; };
+		D67848EE2BA1592500E98E45 /* CustomInputIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputIcon.swift; sourceTree = "<group>"; };
+		D67848F02BA1594500E98E45 /* AutoMonitoringIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMonitoringIcon.swift; sourceTree = "<group>"; };
+		D67848F22BA15B1E00E98E45 /* CasperIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasperIcon.swift; sourceTree = "<group>"; };
+		D6BAA2062BA535D900B522C7 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		D6BAA2092BAD014300B522C7 /* LogInAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAnimation.swift; sourceTree = "<group>"; };
+		D6BAA20B2BAD067200B522C7 /* IdleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleAnimation.swift; sourceTree = "<group>"; };
+		D6BAA2132BAD249100B522C7 /* HideAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideAnimation.swift; sourceTree = "<group>"; };
+		D6BAA2172BAE046900B522C7 /* CasperTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasperTextBox.swift; sourceTree = "<group>"; };
+		D6BAA2192BAE059B00B522C7 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D62CC5052B969F3700C6FC12 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D62CC4FF2B969F3600C6FC12 = {
+			isa = PBXGroup;
+			children = (
+				D62CC50A2B969F3700C6FC12 /* Casper */,
+				D62CC5092B969F3700C6FC12 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D62CC5092B969F3700C6FC12 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D62CC5082B969F3700C6FC12 /* Casper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D62CC50A2B969F3700C6FC12 /* Casper */ = {
+			isa = PBXGroup;
+			children = (
+				D6BAA2162BAE041B00B522C7 /* CalendarFeatures */,
+				D67848E52B9FFB0500E98E45 /* ApplicationMonitor */,
+				D62CC52F2B98E13700C6FC12 /* MusicFeatures */,
+				D67848E02B9FE2E700E98E45 /* ViewModels */,
+				D62CC5292B96AE2500C6FC12 /* Helpers */,
+				D62CC5262B96A75E00C6FC12 /* Views */,
+				D62CC50B2B969F3700C6FC12 /* CasperApp.swift */,
+				D62CC52E2B98DF9100C6FC12 /* Info.plist */,
+				D62CC50F2B969F3700C6FC12 /* Assets.xcassets */,
+				D62CC5142B969F3700C6FC12 /* Casper.entitlements */,
+				D62CC5112B969F3700C6FC12 /* Preview Content */,
+			);
+			path = Casper;
+			sourceTree = "<group>";
+		};
+		D62CC5112B969F3700C6FC12 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D62CC5122B969F3700C6FC12 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D62CC5262B96A75E00C6FC12 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D6BAA2082BAD013200B522C7 /* Animations */,
+				D67848ED2BA1591A00E98E45 /* FunctionButtons */,
+				D62CC5242B96A60600C6FC12 /* CasperIconView.swift */,
+				D62CC52C2B97A81400C6FC12 /* UserTextBox.swift */,
+				D67848DE2B9FCAED00E98E45 /* AlertPrompts.swift */,
+				D6BAA2172BAE046900B522C7 /* CasperTextBox.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D62CC5292B96AE2500C6FC12 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D62CC5272B96A77A00C6FC12 /* ClickThroughWindow.swift */,
+				D62CC5202B96A53A00C6FC12 /* AppDelegate.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D62CC52F2B98E13700C6FC12 /* MusicFeatures */ = {
+			isa = PBXGroup;
+			children = (
+				D62CC5382B99265900C6FC12 /* Spotify */,
+			);
+			path = MusicFeatures;
+			sourceTree = "<group>";
+		};
+		D62CC5382B99265900C6FC12 /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				D62CC5322B98E1FF00C6FC12 /* SpotifyService.swift */,
+				D62CC5392B99266900C6FC12 /* SpotifyAuthenticator.swift */,
+				D6BAA2062BA535D900B522C7 /* KeychainHelper.swift */,
+			);
+			path = Spotify;
+			sourceTree = "<group>";
+		};
+		D67848E02B9FE2E700E98E45 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D67848E52B9FFB0500E98E45 /* ApplicationMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				D67848E62B9FFB1B00E98E45 /* ActiveAppChecker.swift */,
+			);
+			path = ApplicationMonitor;
+			sourceTree = "<group>";
+		};
+		D67848ED2BA1591A00E98E45 /* FunctionButtons */ = {
+			isa = PBXGroup;
+			children = (
+				D67848EE2BA1592500E98E45 /* CustomInputIcon.swift */,
+				D67848F02BA1594500E98E45 /* AutoMonitoringIcon.swift */,
+			);
+			path = FunctionButtons;
+			sourceTree = "<group>";
+		};
+		D6BAA2082BAD013200B522C7 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				D67848E92BA1447000E98E45 /* UserTypeRequestAnimation.swift */,
+				D67848EB2BA148BB00E98E45 /* ConfirmActionAnimation.swift */,
+				D6BAA2092BAD014300B522C7 /* LogInAnimation.swift */,
+				D67848F22BA15B1E00E98E45 /* CasperIcon.swift */,
+				D6BAA20B2BAD067200B522C7 /* IdleAnimation.swift */,
+				D6BAA2132BAD249100B522C7 /* HideAnimation.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		D6BAA2162BAE041B00B522C7 /* CalendarFeatures */ = {
+			isa = PBXGroup;
+			children = (
+				D6BAA2192BAE059B00B522C7 /* CalendarService.swift */,
+			);
+			path = CalendarFeatures;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D62CC5072B969F3700C6FC12 /* Casper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D62CC5172B969F3700C6FC12 /* Build configuration list for PBXNativeTarget "Casper" */;
+			buildPhases = (
+				D62CC5042B969F3700C6FC12 /* Sources */,
+				D62CC5052B969F3700C6FC12 /* Frameworks */,
+				D62CC5062B969F3700C6FC12 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Casper;
+			productName = Casper;
+			productReference = D62CC5082B969F3700C6FC12 /* Casper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D62CC5002B969F3600C6FC12 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					D62CC5072B969F3700C6FC12 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = D62CC5032B969F3600C6FC12 /* Build configuration list for PBXProject "Casper" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D62CC4FF2B969F3600C6FC12;
+			productRefGroup = D62CC5092B969F3700C6FC12 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D62CC5072B969F3700C6FC12 /* Casper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D62CC5062B969F3700C6FC12 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D62CC5132B969F3700C6FC12 /* Preview Assets.xcassets in Resources */,
+				D62CC5102B969F3700C6FC12 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D62CC5042B969F3700C6FC12 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6BAA20A2BAD014300B522C7 /* LogInAnimation.swift in Sources */,
+				D6BAA2142BAD249100B522C7 /* HideAnimation.swift in Sources */,
+				D62CC5252B96A60600C6FC12 /* CasperIconView.swift in Sources */,
+				D67848E72B9FFB1B00E98E45 /* ActiveAppChecker.swift in Sources */,
+				D67848F32BA15B1E00E98E45 /* CasperIcon.swift in Sources */,
+				D62CC52D2B97A81400C6FC12 /* UserTextBox.swift in Sources */,
+				D67848F12BA1594500E98E45 /* AutoMonitoringIcon.swift in Sources */,
+				D67848EA2BA1447000E98E45 /* UserTypeRequestAnimation.swift in Sources */,
+				D67848EF2BA1592500E98E45 /* CustomInputIcon.swift in Sources */,
+				D6BAA2182BAE046900B522C7 /* CasperTextBox.swift in Sources */,
+				D62CC5212B96A53A00C6FC12 /* AppDelegate.swift in Sources */,
+				D6BAA20C2BAD067200B522C7 /* IdleAnimation.swift in Sources */,
+				D62CC53A2B99266900C6FC12 /* SpotifyAuthenticator.swift in Sources */,
+				D67848EC2BA148BB00E98E45 /* ConfirmActionAnimation.swift in Sources */,
+				D67848DF2B9FCAED00E98E45 /* AlertPrompts.swift in Sources */,
+				D62CC5282B96A77A00C6FC12 /* ClickThroughWindow.swift in Sources */,
+				D62CC5332B98E1FF00C6FC12 /* SpotifyService.swift in Sources */,
+				D62CC50C2B969F3700C6FC12 /* CasperApp.swift in Sources */,
+				D6BAA21A2BAE059B00B522C7 /* CalendarService.swift in Sources */,
+				D6BAA2072BA535D900B522C7 /* KeychainHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D62CC5152B969F3700C6FC12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D62CC5162B969F3700C6FC12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		D62CC5182B969F3700C6FC12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Casper/Casper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Casper/Preview Content\"";
+				DEVELOPMENT_TEAM = 7D9X7VPM2A;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Casper/Info.plist;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Helps Casper to navigate your mac!";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CasperAI.casper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D62CC5192B969F3700C6FC12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Casper/Casper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Casper/Preview Content\"";
+				DEVELOPMENT_TEAM = 7D9X7VPM2A;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Casper/Info.plist;
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Helps Casper to navigate your mac!";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CasperAI.casper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D62CC5032B969F3600C6FC12 /* Build configuration list for PBXProject "Casper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D62CC5152B969F3700C6FC12 /* Debug */,
+				D62CC5162B969F3700C6FC12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D62CC5172B969F3700C6FC12 /* Build configuration list for PBXNativeTarget "Casper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D62CC5182B969F3700C6FC12 /* Debug */,
+				D62CC5192B969F3700C6FC12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D62CC5002B969F3600C6FC12 /* Project object */;
+}
