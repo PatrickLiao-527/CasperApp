@@ -7,6 +7,8 @@
 
 // This file handles the specific interaction with the spotify api
 import Foundation
+import os
+
 
 class SpotifyService: ObservableObject {
     private var accessToken: String?
@@ -48,7 +50,7 @@ class SpotifyService: ObservableObject {
 //            completion([])
 //            return
 //        }
-//        
+//
 //        let query = "\(song.title) \(song.artist)"
 //        print ("query: \(query)")
 //        let queryParams = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
@@ -58,24 +60,24 @@ class SpotifyService: ObservableObject {
 //            completion([])
 //            return
 //        }
-//        
+//
 //        var request = URLRequest(url: url)
 //        request.httpMethod = "GET"
 //        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-//        
+//
 //        URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let error = error {
 //                print("Network request error for query \(query): \(error.localizedDescription)")
 //                completion([])
 //                return
 //            }
-//            
+//
 //            guard let data = data else {
 //                print("Error: No data received from the search request for query \(query).")
 //                completion([])
 //                return
 //            }
-//            
+//
 //            do {
 //                let searchResults = try JSONDecoder().decode(SpotifySearchResponse.self, from: data)
 //                if let trackItem = searchResults.tracks.items.first {
@@ -139,7 +141,7 @@ class SpotifyService: ObservableObject {
         }
     }
     func playSongsFromSuggestion(userInput: String, completion: @escaping (Bool, String?) -> Void) {
-        fetchSongSuggestions(userInput: userInput) { [weak self] trackIds, error in
+        fetchSongSuggestions(userInput: userInput) { [weak self] trackIds, songGenre,  error in
             guard let self = self else {
                 completion(false, "Internal error: self is nil.")
                 return
@@ -169,10 +171,10 @@ class SpotifyService: ObservableObject {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "MMMM dd"
                 let formattedDate = formatter.string(from: Date())
-                let playlistName = "Casper's curated playlist- \(formattedDate)"
+                let playlistName = "Casper's curated playlist for \(songGenre!) musics on \(formattedDate)"
 
                 
-                self.createPlaylist(for: userId, with: playlistName) { playlistId in
+                self.createPlaylist(for: userId, with: playlistName, userInput: userInput) { playlistId in
                     guard let playlistId = playlistId else {
                         let errorMessage = "Error creating a new playlist."
                         self.appStateManager.updateSystemMessage(errorMessage)
@@ -266,7 +268,7 @@ class SpotifyService: ObservableObject {
         
         task.resume()
     }
-    func createPlaylist(for userId: String, with name: String, completion: @escaping (String?) -> Void) {
+    func createPlaylist(for userId: String, with name: String, userInput: String, completion: @escaping (String?) -> Void) {
         guard let accessToken = self.accessToken else {
             print("Access token is not available.")
             completion(nil)
@@ -287,7 +289,7 @@ class SpotifyService: ObservableObject {
         
         let body: [String: Any] = [
             "name": name,
-            "description": "Playlist created by Casper",
+            "description": "Playlist created by Casper for \"\(userInput)\"",
             "public": false // Change this as per requirement
         ]
         
@@ -322,7 +324,6 @@ class SpotifyService: ObservableObject {
         task.resume()
     }
     func addTracksToPlaylist(playlistId: String, trackURIs: [String], completion: @escaping (Bool) -> Void) {
-        print ("trackURI")
         guard !trackURIs.isEmpty else {
             print("No track URIs provided.")
             completion(false)
@@ -357,6 +358,7 @@ class SpotifyService: ObservableObject {
         }
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print ("error in adding tracks : \(response.debugDescription)")
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 || httpResponse.statusCode == 200 else {
                 print("Failed to add tracks to the playlist.")
                 completion(false)
@@ -546,9 +548,9 @@ class SpotifyService: ObservableObject {
             }
         }.resume()
     }
-    func fetchSongSuggestions(userInput: String, completion: @escaping ([Song]?, String?) -> Void) {
+    func fetchSongSuggestions(userInput: String, completion: @escaping ([Song]?, String?, String?) -> Void) {
         // Directly fetch recommendations without pre-checking for LLM Parameters.
-        getRecommendations(userInput: userInput) { result in
+        getRecommendations(userInput: userInput) { result, songGenre in
             switch result {
             case .success(let trackObjects):
                   let songsWithURIs: [Song] = trackObjects.compactMap { trackObject in
@@ -557,12 +559,12 @@ class SpotifyService: ObservableObject {
                   }
                 
                 DispatchQueue.main.async {
-                    completion(songsWithURIs, nil)
+                    completion(songsWithURIs, songGenre, nil)
                 }
                 
             case .failure(let error):
                 DispatchQueue.main.async {
-                    completion(nil, "Failed to fetch song recommendations: \(error.localizedDescription)")
+                    completion(nil, "", "Failed to fetch song recommendations: \(error.localizedDescription)")
                 }
             }
         }
@@ -606,12 +608,12 @@ class SpotifyService: ObservableObject {
 //            completion(.failure(SpotifyServiceError.accessTokenUnavailable))
 //            return
 //        }
-//        
+//
 //        let topArtistsURL = URL(string: "https://api.spotify.com/v1/me/top/artists?limit=50")! // Increase limit to get a broader selection
 //        var request = URLRequest(url: topArtistsURL)
 //        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 //        request.httpMethod = "GET"
-//        
+//
 //        URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let error = error {
 //                DispatchQueue.main.async {
@@ -619,21 +621,21 @@ class SpotifyService: ObservableObject {
 //                }
 //                return
 //            }
-//            
+//
 //            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
 //                DispatchQueue.main.async {
 //                    completion(.failure(SpotifyServiceError.unexpectedResponse))
 //                }
 //                return
 //            }
-//            
+//
 //            guard let data = data else {
 //                DispatchQueue.main.async {
 //                    completion(.failure(SpotifyServiceError.noDataReceived))
 //                }
 //                return
 //            }
-//            
+//
 //            do {
 //                let decoder = JSONDecoder()
 //                let topArtistsResponse = try decoder.decode(TopArtistsResponse.self, from: data)
@@ -642,11 +644,11 @@ class SpotifyService: ObservableObject {
 //                    .sorted(by: { ($0.popularity ?? 0) > ($1.popularity ?? 0) })
 //                    .map { $0.id }
 //                    .prefix(4)
-//                
+//
 //                DispatchQueue.main.async {
 //                    completion(.success(Array(sortedArtistIDs)))
 //                }
-//                
+//
 //            } catch {
 //                DispatchQueue.main.async {
 //                    completion(.failure(error))
@@ -665,12 +667,12 @@ class SpotifyService: ObservableObject {
 //            completion(.failure(SpotifyServiceError.accessTokenUnavailable))
 //            return
 //        }
-//        
+//
 //        let topTracksURL = URL(string: "https://api.spotify.com/v1/me/top/tracks")! // Requesting top tracks without specifying limit
 //        var request = URLRequest(url: topTracksURL)
 //        request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 //        request.httpMethod = "GET"
-//        
+//
 //        URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let error = error {
 //                DispatchQueue.main.async {
@@ -678,21 +680,21 @@ class SpotifyService: ObservableObject {
 //                }
 //                return
 //            }
-//            
+//
 //            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
 //                DispatchQueue.main.async {
 //                    completion(.failure(SpotifyServiceError.unexpectedResponse))
 //                }
 //                return
 //            }
-//            
+//
 //            guard let data = data else {
 //                DispatchQueue.main.async {
 //                    completion(.failure(SpotifyServiceError.noDataReceived))
 //                }
 //                return
 //            }
-//            
+//
 //            do {
 //                let decoder = JSONDecoder()
 //                let topTracksResponse = try decoder.decode(TopTracksResponse.self, from: data)
@@ -703,7 +705,7 @@ class SpotifyService: ObservableObject {
 //                DispatchQueue.main.async {
 //                    completion(.success(selectedIDs))
 //                }
-//                
+//
 //            } catch {
 //                DispatchQueue.main.async {
 //                    completion(.failure(error))
@@ -751,68 +753,68 @@ class SpotifyService: ObservableObject {
                     (name: artist.name, genres: artist.genres)
                 }
                 
-                // Add additional hardcoded artists from various genres
-                let additionalArtists: [(name: String, genres: [String]?)] = [
-                    // Classical
-                    (name: "Ludwig van Beethoven", genres: ["classical"]),
-                    (name: "Johann Sebastian Bach", genres: ["classical", "baroque"]),
-                    
-                    // Jazz
-                    (name: "Miles Davis", genres: ["jazz", "bebop"]),
-                    (name: "Ella Fitzgerald", genres: ["jazz", "vocal jazz"]),
-                    
-                    // Rock
-                    (name: "The Beatles", genres: ["rock", "british invasion"]),
-                    (name: "Led Zeppelin", genres: ["rock", "classic rock"]),
-                    
-                    // Hip-Hop
-                    (name: "Tupac Shakur", genres: ["hip hop", "west coast rap"]),
-                    (name: "The Notorious B.I.G.", genres: ["hip hop", "east coast rap"]),
-                    
-                    // Electronic
-                    (name: "Daft Punk", genres: ["electronic", "house"]),
-                    (name: "Deadmau5", genres: ["electronic", "progressive house"]),
-                    
-                    // Country
-                    (name: "Johnny Cash", genres: ["country", "classic country"]),
-                    (name: "Dolly Parton", genres: ["country"]),
-                    
-                    // R&B/Soul
-                    (name: "Aretha Franklin", genres: ["soul", "r&b"]),
-                    (name: "Stevie Wonder", genres: ["soul", "funk", "r&b"]),
-                    
-                    // Pop
-                    (name: "Madonna", genres: ["pop"]),
-                    (name: "Michael Jackson", genres: ["pop", "soul"]),
-                    
-                    // Metal
-                    (name: "Metallica", genres: ["metal", "thrash metal"]),
-                    (name: "Iron Maiden", genres: ["metal", "heavy metal"]),
-                    
-                    // Reggae
-                    (name: "Bob Marley", genres: ["reggae"]),
-                    (name: "Peter Tosh", genres: ["reggae"]),
-                    
-                    // Ambient
-                    (name: "Brian Eno", genres: ["ambient", "experimental"]),
-                    (name: "Aphex Twin", genres: ["ambient", "electronic"]),
-                    
-                    // Blues
-                    (name: "B.B. King", genres: ["blues"]),
-                    (name: "Muddy Waters", genres: ["blues", "chicago blues"]),
-                    
-                    // Folk
-                    (name: "Bob Dylan", genres: ["folk", "singer-songwriter"]),
-                    (name: "Joan Baez", genres: ["folk", "folk rock"]),
-
-                    // Alternative
-                    (name: "Radiohead", genres: ["alternative rock", "art rock"]),
-                    (name: "The Smiths", genres: ["alternative rock", "indie rock"])
-                ]//MARK: Some hard coded artist to make the user's artist seed choice more comprehensive
+//                // Add additional hardcoded artists from various genres
+//                let additionalArtists: [(name: String, genres: [String]?)] = [
+//                    // Classical
+//                    (name: "Ludwig van Beethoven", genres: ["classical"]),
+//                    (name: "Johann Sebastian Bach", genres: ["classical", "baroque"]),
+//
+//                    // Jazz
+//                    (name: "Miles Davis", genres: ["jazz", "bebop"]),
+//                    (name: "Ella Fitzgerald", genres: ["jazz", "vocal jazz"]),
+//
+//                    // Rock
+//                    (name: "The Beatles", genres: ["rock", "british invasion"]),
+//                    (name: "Led Zeppelin", genres: ["rock", "classic rock"]),
+//
+//                    // Hip-Hop
+//                    (name: "Tupac Shakur", genres: ["hip hop", "west coast rap"]),
+//                    (name: "The Notorious B.I.G.", genres: ["hip hop", "east coast rap"]),
+//
+//                    // Electronic
+//                    (name: "Daft Punk", genres: ["electronic", "house"]),
+//                    (name: "Deadmau5", genres: ["electronic", "progressive house"]),
+//
+//                    // Country
+//                    (name: "Johnny Cash", genres: ["country", "classic country"]),
+//                    (name: "Dolly Parton", genres: ["country"]),
+//
+//                    // R&B/Soul
+//                    (name: "Aretha Franklin", genres: ["soul", "r&b"]),
+//                    (name: "Stevie Wonder", genres: ["soul", "funk", "r&b"]),
+//
+//                    // Pop
+//                    (name: "Madonna", genres: ["pop"]),
+//                    (name: "Michael Jackson", genres: ["pop", "soul"]),
+//
+//                    // Metal
+//                    (name: "Metallica", genres: ["metal", "thrash metal"]),
+//                    (name: "Iron Maiden", genres: ["metal", "heavy metal"]),
+//
+//                    // Reggae
+//                    (name: "Bob Marley", genres: ["reggae"]),
+//                    (name: "Peter Tosh", genres: ["reggae"]),
+//
+//                    // Ambient
+//                    (name: "Brian Eno", genres: ["ambient", "experimental"]),
+//                    (name: "Aphex Twin", genres: ["ambient", "electronic"]),
+//
+//                    // Blues
+//                    (name: "B.B. King", genres: ["blues"]),
+//                    (name: "Muddy Waters", genres: ["blues", "chicago blues"]),
+//
+//                    // Folk
+//                    (name: "Bob Dylan", genres: ["folk", "singer-songwriter"]),
+//                    (name: "Joan Baez", genres: ["folk", "folk rock"]),
+//
+//                    // Alternative
+//                    (name: "Radiohead", genres: ["alternative rock", "art rock"]),
+//                    (name: "The Smiths", genres: ["alternative rock", "indie rock"])
+//                ]//MARK: Some hard coded artist to make the user's artist seed choice more comprehensive
 
                 
                 // Combine the user's top artists with the additional ones
-                artistDetails += additionalArtists
+                //artistDetails += additionalArtists
                 
                 DispatchQueue.main.async {
                     completion(.success(artistDetails))
@@ -900,7 +902,7 @@ class SpotifyService: ObservableObject {
             }
         }
     }
-    func getRecommendations(userInput: String, completion: @escaping (Result<[TrackObject], Error>) -> Void) {
+    func getRecommendations(userInput: String, completion: @escaping (Result<[TrackObject], Error>, String?) -> Void) {
         // Step 1: Fetch top artists with details
         getTopArtistsWithDetails { [weak self] result in
             switch result {
@@ -908,7 +910,7 @@ class SpotifyService: ObservableObject {
                 // Step 2: Use artist details and user input to prompt the LLM
                 self?.fetchLLMResponse(userInput: userInput, topArtists: artistsDetails) { llmResponse in
                     guard let llmParams = llmResponse else {
-                        completion(.failure(SongFetchError.llmResponseError))
+                        completion(.failure(SongFetchError.llmResponseError), "")
                         return
                     }
                     
@@ -919,20 +921,20 @@ class SpotifyService: ObservableObject {
                             // Step 4: Use artist IDs and LLM parameters to fetch Spotify recommendations
                             self?.fetchSpotifyRecommendations(artistIDs: artistIDs, llmParams: llmParams, completion: completion)
                         case .failure(let error):
-                            completion(.failure(error))
+                            completion(.failure(error), "")
                         }
                     }
                 }
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(error), "")
             }
         }
     }
 
     // Helper function to fetch Spotify recommendations using artist IDs and LLM parameters
-    func fetchSpotifyRecommendations(artistIDs: [String], llmParams: RecommendationParameters, completion: @escaping (Result<[TrackObject], Error>) -> Void) {
+    func fetchSpotifyRecommendations(artistIDs: [String], llmParams: RecommendationParameters, completion: @escaping (Result<[TrackObject], Error>, String?) -> Void) {
         guard let accessToken = self.accessToken else {
-            completion(.failure(SongFetchError.tokenUnavailable))
+            completion(.failure(SongFetchError.tokenUnavailable), "")
             return
         }
 
@@ -953,7 +955,7 @@ class SpotifyService: ObservableObject {
         ]
 
         guard let url = components.url else {
-            completion(.failure(SongFetchError.invalidURL))
+            completion(.failure(SongFetchError.invalidURL), "")
             return
         }
 
@@ -962,26 +964,27 @@ class SpotifyService: ObservableObject {
 
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(.failure(SongFetchError.networkError(error)))
+                completion(.failure(SongFetchError.networkError(error)), "")
                 return
             }
 
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                completion(.failure(SongFetchError.responseError("Spotify API returned non-200 response")))
+                completion(.failure(SongFetchError.responseError("Spotify API returned non-200 response")),"")
                 return
             }
 
             guard let data = data else {
-                completion(.failure(SongFetchError.noData))
+                completion(.failure(SongFetchError.noData), "")
                 return
             }
 
             do {
                 let decoder = JSONDecoder()
                 let spotifyTrackResponse = try decoder.decode(SpotifyTrackResponse.self, from: data)
-                completion(.success(spotifyTrackResponse.tracks))
+                print("Received Spotify Tracks: \(spotifyTrackResponse.tracks)")
+                completion(.success(spotifyTrackResponse.tracks), llmParams.genre)
             } catch {
-                completion(.failure(error))
+                completion(.failure(error), "")
             }
         }.resume()
     }
@@ -1015,19 +1018,19 @@ class SpotifyService: ObservableObject {
             artists = artistsOutput
         }
         
-        // Custom CodingKeys to map "aritsts" (with typo in JSON) to "artists"
         enum CodingKeys: String, CodingKey {
             case response
-            case artists = "aritsts" // Note the typo in your JSON key
+            case artists = "artists"
         }
     }
 
-    func fetchLLMResponse(userInput: String, 
+
+    func fetchLLMResponse(userInput: String,
                           topArtists: [(name: String, genres: [String]?)],
                           attempt: Int = 1,
                           maxAttempts: Int = 10,
                           completion: @escaping (RecommendationParameters?) -> Void) {
-        let url = URL(string: "http://127.0.0.1:8000/api/suggest-song/")!
+        let url = URL(string: "https://casper-backend-ea807e73fccc.herokuapp.com/api/suggest-song/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -1040,14 +1043,14 @@ class SpotifyService: ObservableObject {
                 }
             ]
         ]
-//        do { //MARK: Code for debugging
-//            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
-//            if let jsonString = String(data: jsonData, encoding: .utf8) {
-//                print("Request Body in JSON format:\n\(jsonString)")
-//            }
-//        } catch {
-//            print("Error serializing JSON: \(error)")
-//        }
+        do { //MARK: Code for debugging
+            let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                print("Request Body in JSON format:\n\(jsonString)")
+            }
+        } catch {
+            print("Error serializing JSON: \(error)")
+        }
 
 
         do {
@@ -1137,7 +1140,7 @@ struct RecommendationParameters {
     var max_danceability: Float
     var min_tempo: Float
     var max_tempo: Float
-    var recommendedArtists: [String] // Added to hold LLM-recommended artists
+    var recommendedArtists: [String]
 }
     
 struct DevicesResponse: Codable {

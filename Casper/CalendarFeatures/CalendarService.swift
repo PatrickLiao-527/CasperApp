@@ -21,38 +21,7 @@ class CalendarService: ObservableObject{
     
     // Function to request access to the Event Store
     func requestAccess(completion: @escaping (Bool, Error?) -> Void) {
-        let authorizationStatus = EKEventStore.authorizationStatus(for: .event)
-        print ("Current authorization status: \(authorizationStatus.rawValue)")
-        switch authorizationStatus {
-            case .authorized, .notDetermined:
-                // Only request access if the status is not determined.
-                if authorizationStatus == .notDetermined {
-                    eventStore.requestFullAccessToEvents { granted, error in
-                        if let error = error {
-                            print("Error requesting calendar access: \(error.localizedDescription)")
-                        } else if granted {
-                            print("Calendar access granted")
-                        } else {
-                            print("Calendar access denied")
-                        }
-                        completion(granted, error)
-                    }
-                } else {
-                    // We have access already
-                    print("Already have calendar access")
-                    completion(true, nil)
-                }
-            
-            case .restricted, .denied:
-                // Access has been restricted or denied.
-                print("Calendar access denied")
-                completion(false, nil)
-                
-        case .fullAccess:
-            // We have access already
-            print("Already have calendar access")
-            completion(true, nil)
-        case .writeOnly: // we need full access
+        if #available(macOS 14.0, *) {
             eventStore.requestFullAccessToEvents { granted, error in
                 if let error = error {
                     print("Error requesting calendar access: \(error.localizedDescription)")
@@ -63,15 +32,24 @@ class CalendarService: ObservableObject{
                 }
                 completion(granted, error)
             }
-        @unknown default:
-                // Handle any future cases.
-                fatalError("Unknown EKAuthorizationStatus case.")
+        } else {
+            // Fallback for macOS 13.0 and earlier versions
+            eventStore.requestAccess(to: .event) { granted, error in
+                if let error = error {
+                    print("Error requesting calendar access: \(error.localizedDescription)")
+                } else if granted {
+                    print("Calendar access granted")
+                } else {
+                    print("Calendar access denied")
+                }
+                completion(granted, error)
+            }
         }
     }
 
 
 
-    // Function to get user permission
+    // Function to get user permission and perform a search
     func eventSearch(start: Date, end: Date, calendarNames: [String]? = nil, eventName: String? = nil, completion: ((Bool) -> Void)? = nil) {
         let status = EKEventStore.authorizationStatus(for: .event)
         switch status {
@@ -85,13 +63,26 @@ class CalendarService: ObservableObject{
                 print("Access to the calendar is denied or restricted.")
                 completion?(false)
             case .notDetermined:
-                eventStore.requestFullAccessToEvents { granted, error in
-                    if granted {
-                        self.performEventSearch(start: start, end: end, calendarNames: calendarNames, eventName: eventName)
-                        completion?(true)
-                    } else {
-                        print("Access to calendar was not granted.")
-                        completion?(false)
+                if #available(macOS 14.0, *) {
+                    eventStore.requestFullAccessToEvents { granted, error in
+                        if granted {
+                            self.performEventSearch(start: start, end: end, calendarNames: calendarNames, eventName: eventName)
+                            completion?(true)
+                        } else {
+                            print("Access to calendar was not granted.")
+                            completion?(false)
+                        }
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    eventStore.requestAccess(to: .event) { granted, error in
+                        if granted {
+                            self.performEventSearch(start: start, end: end, calendarNames: calendarNames, eventName: eventName)
+                            completion?(true)
+                        } else {
+                            print("Access to calendar was not granted.")
+                            completion?(false)
+                        }
                     }
                 }
             @unknown default:
@@ -121,7 +112,7 @@ class CalendarService: ObservableObject{
             appStateManager.CalendarEvents = simpleEvents
         }
     }
-    //Temporary function for testing purposes 
+    //Temporary function for testing purposes
     func fetchTodaysEvents(completion: ((Bool) -> Void)? = nil) {
         let start = Calendar.current.startOfDay(for: Date())
         let end = Calendar.current.date(byAdding: .day, value: 1, to: start)!
