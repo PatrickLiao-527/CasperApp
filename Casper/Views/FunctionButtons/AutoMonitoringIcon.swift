@@ -14,6 +14,7 @@ struct AutoMonitoringIcon: View{
         Image("AutoMonitoringIcon")
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .contentShape(Rectangle())
             .frame(width: iconSize / 2, height: iconSize / 2)
             .onTapGesture{
                 activeAppChecker.printActiveApplications()

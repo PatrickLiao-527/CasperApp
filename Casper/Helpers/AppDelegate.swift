@@ -78,14 +78,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Menu item functions
     @objc func showCasper() {
         AppStateManager.shared.appState = .login
+        window.ignoresMouseEvents = false // The window will respond to mouse events again.
+        window.makeKeyAndOrderFront(nil) // Show the window.
     }
-    
     @objc func Spotify_DJ() {
         AppStateManager.shared.appState = .autoMonitoring
     }
 
     @objc func hideCasper() {
         AppStateManager.shared.appState = .hide
+        window.ignoresMouseEvents = true // The window will ignore all mouse events.
+        window.orderOut(nil) // Hide the window without deactivating the application.
     }
     @objc func calendarHelp(){
         AppStateManager.shared.appState = .calendarHelp

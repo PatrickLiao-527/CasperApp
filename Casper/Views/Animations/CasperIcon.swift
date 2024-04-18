@@ -16,6 +16,7 @@ struct CasperIcon: View{
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: iconSize, height: iconSize)
+            .contentShape(Rectangle())
             .onTapGesture {
                 withAnimation(.default) {
                     if appState == .functionSelection{

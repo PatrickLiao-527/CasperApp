@@ -16,6 +16,7 @@ struct CustomInputIcon: View{
         Image("CustomInputIcon")
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .contentShape(Rectangle())
             .frame(width: iconSize / 2, height: iconSize / 2)
             .onTapGesture {
                 if !connected{
