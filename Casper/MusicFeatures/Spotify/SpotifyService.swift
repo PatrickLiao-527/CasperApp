@@ -749,7 +749,7 @@ class SpotifyService: ObservableObject {
             do {
                 let decoder = JSONDecoder()
                 let topArtistsResponse = try decoder.decode(TopArtistsResponse.self, from: data)
-                var artistDetails = topArtistsResponse.items.map { artist in
+                let artistDetails = topArtistsResponse.items.map { artist in
                     (name: artist.name, genres: artist.genres)
                 }
                 

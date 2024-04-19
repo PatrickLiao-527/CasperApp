@@ -14,16 +14,22 @@ struct CasperIconView: View {
     
     // General
     let iconSize: CGFloat = 100
-    
+
     var body: some View {
-        ZStack {
-            casperIconAnimation
-            additionalElements
+        GeometryReader { geometry in
+            ZStack {
+                casperIconAnimation
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2 + iconSize/2)
+                additionalElements
+                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2 + additionalElementsSizeForState(appStateManager.appState).height / 2)
+            }
+            //.border(Color.blue)
+            .clipped()
         }
-        .frame(width: maxFrameSize.width, height: maxFrameSize.height, alignment: .bottom)
-        .border(Color.blue)
-        .clipped() // Clip the frame to its bounds to prevent mouse events from being taken outside the visible area
+        
+
     }
+    
     
     private var casperIconAnimation: some View {
         VStack {
@@ -40,12 +46,11 @@ struct CasperIconView: View {
                 return AnyView(UserTextBox(apiToUse: "Calendar", iconSize: iconSize))
             case .calendarReply, .systemReply:
                 return AnyView(CasperTextBox(appStateManager: appStateManager, iconSize: iconSize))
-            default:
-                return AnyView(EmptyView())
+//            default:
+//                return AnyView(EmptyView())
             }
         }
     }
-    
     private var additionalElements: some View {
         VStack {
             switch appStateManager.appState {
@@ -59,8 +64,21 @@ struct CasperIconView: View {
         }
         .offset(y: -iconSize) // Offset the additional elements above the CasperIconAnimation
     }
-
-    
+    private func additionalElementsOffset() -> CGFloat {
+//        let additionalElementsSize = additionalElementsSizeForState(appStateManager.appState)
+//        return (additionalElementsSize.height / 2) + 20 // Add some padding
+        return 20
+    }
+    private func additionalElementsSizeForState(_ state: AppState) -> CGSize {
+        switch state {
+        case .functionSelection:
+            return CGSize(width: iconSize + 20 , height: iconSize-10) // Adjust as needed
+        case .startNLInput:
+            return CGSize(width: iconSize * 2, height: iconSize) // Adjust as needed
+        default:
+            return CGSize(width: 0, height: 0) // No additional elements
+        }
+    }
     private var functionSelectionView: some View {
         HStack(spacing: 20) {
             CustomInputIcon(connected: $connected,
@@ -71,35 +89,5 @@ struct CasperIconView: View {
                                iconSize: iconSize)
         }
         .animation(.easeInOut(duration: 0.8), value: appStateManager.appState)
-    }
-    
-    private var maxFrameSize: CGSize {
-        let casperIconSize = casperIconSizeForState(appStateManager.appState)
-        let additionalElementsSize = additionalElementsSizeForState(appStateManager.appState)
-        
-        let maxWidth = max(casperIconSize.width, additionalElementsSize.width)
-        let totalHeight = casperIconSize.height + additionalElementsSize.height
-        
-        return CGSize(width: maxWidth, height: totalHeight)
-    }
-    
-    private func casperIconSizeForState(_ state: AppState) -> CGSize {
-        switch state {
-        case .login, .idle, .functionSelection, .autoMonitoring, .hide, .calendarHelp:
-            return CGSize(width: iconSize, height: iconSize)
-        case .startNLInput, .userFinishedInput, .calendarReply, .systemReply:
-            return CGSize(width: iconSize, height: iconSize)
-        }
-    }
-
-    private func additionalElementsSizeForState(_ state: AppState) -> CGSize {
-        switch state {
-        case .functionSelection:
-            return CGSize(width: iconSize + 10 , height: iconSize-10) // Adjust as needed
-        case .startNLInput:
-            return CGSize(width: iconSize * 2, height: iconSize) // Adjust as needed
-        default:
-            return CGSize(width: 0, height: 0) // No additional elements
-        }
     }
 }
